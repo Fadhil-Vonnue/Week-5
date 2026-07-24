@@ -1,5 +1,7 @@
 export {};
-const memoize = function (fn: (...args: unknown[]) => unknown) {
+const memoize = function (
+    fn: (...args: unknown[]) => unknown
+): (...args: unknown[]) => unknown {
     const cache = new Map();
     return function (this: void, ...args: unknown[]) {
         let strkey: string = args.join(",");

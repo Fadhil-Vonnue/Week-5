@@ -1,8 +1,5 @@
-function debounce(
-    this: void,
-    func: (...args: unknown[]) => void,
-    wait: number = 3000
-) {
+type funcType = (...args: unknown[]) => void;
+function debounce(this: void, func: funcType, wait: number = 3000): funcType {
     let timeout: number;
     return (...args: unknown[]) => {
         const context = this;

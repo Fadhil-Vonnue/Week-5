@@ -1,4 +1,4 @@
-async function fetchJSON(url: string, options?: object) {
+async function fetchJSON(url: string, options?: object): Promise<object> {
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
