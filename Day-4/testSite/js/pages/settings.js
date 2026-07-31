@@ -7,41 +7,29 @@ export function renderSettingsPage() {
     divElement.append(h2Element);
     documentFragment.append(divElement);
     const mainElement1 = document.querySelector("main");
-    if (mainElement1) {
-        const mainElement = document.createElement("div");
-        mainElement1.innerHTML = ``;
-        mainElement.classList.value = ``;
-        mainElement.classList.add("reload");
-        mainElement.innerHTML = "";
-        mainElement.append(documentFragment);
-        mainElement1.appendChild(mainElement);
-        const container = document.createElement("div");
-        container.classList.add("container");
-        let card = createButton("Log In");
-        if (card instanceof HTMLElement) {
-            card.classList.add("new-button");
-            container.appendChild(card);
-            card = createButton("Create User");
-        }
-        if (card instanceof HTMLElement) {
-            card.classList.add("new-button");
-            container.appendChild(card);
-            card = createButton("Your Watchlist");
-        }
-        if (card instanceof HTMLElement) {
-            card.classList.add("new-button");
-            container.appendChild(card);
-            card = createButton("Change Password");
-        }
-        if (card instanceof HTMLElement) {
-            card.classList.add("new-button");
-            container.appendChild(card);
-            card = createButton("Delete Account");
-        }
-        if (card instanceof HTMLElement) {
-            card.classList.add("new-button");
-            container.appendChild(card);
-            mainElement1.appendChild(container);
-        }
-    }
+    const mainElement = document.createElement("div");
+    mainElement1.innerHTML = ``;
+    mainElement.classList.value = ``;
+    mainElement.classList.add("reload");
+    mainElement.innerHTML = "";
+    mainElement.append(documentFragment);
+    mainElement1.appendChild(mainElement);
+    const container = document.createElement("div");
+    container.classList.add("container");
+    let card = createButton("Log In");
+    card.classList.add("new-button");
+    container.appendChild(card);
+    card = createButton("Create User");
+    card.classList.add("new-button");
+    container.appendChild(card);
+    card = createButton("Your Watchlist");
+    card.classList.add("new-button");
+    container.appendChild(card);
+    card = createButton("Change Password");
+    card.classList.add("new-button");
+    container.appendChild(card);
+    card = createButton("Delete Account");
+    card.classList.add("new-button");
+    container.appendChild(card);
+    mainElement1.appendChild(container);
 }

@@ -1,3 +1,5 @@
+import { store } from "../main.js";
+import { Action, obj1, State } from "../types.js";
 export function registerPath(
     routes: Record<string, Function>,
     path: string,
@@ -5,24 +7,7 @@ export function registerPath(
 ) {
     routes[path] = component;
 }
-type obj1 = {
-    imdbID?: string;
-};
-interface State {
-    route: {
-        path: string;
-        params: obj1;
-    };
-    watchList: {
-        list: Set<unknown>;
-        id: string;
-        type: string;
-    };
-}
-interface Action {
-    type: string;
-    payload: Record<string, unknown>;
-}
+
 export async function navigate(
     routes: Record<string, Function>,
     path: string,
@@ -42,17 +27,18 @@ export async function navigate(
         return false;
     }
 }
+export async function onRouteChange(path: string, params: obj1) {
 
-export async function fetchJSON(url1: string) {
-    try {
-        const url = ` https://www.omdbapi.com/?apikey=d65b40df&s=${url1}&page=1`;
-        const response = await fetch(url);
-        const data = response.json();
-        return data;
-    } catch (err) {
-        console.error(err);
-    }
+    await store.dispatch({
+        type: "ROUTE_CHANGED",
+        payload: {
+            path,
+            params,
+        },
+    });
 }
+
+
 export async function fetchJSON1(url: string) {
     try {
         const response = await fetch(url);
@@ -68,10 +54,21 @@ export function reducer(state: State, action: Action) {
             return { ...state, route: action.payload };
         case "MOVIE_ADDED":
             const list = state.watchList.list;
-            console.log(list);
-            if (action.payload.type === "Add") list.add(action.payload.id);
-            else list.delete(action.payload.id);
-            console.log(list);
+            if (action.payload.type === "Add") {
+                showToast(
+                    { message: "Added movie to WatchList" },
+                    4,
+                    "success"
+                );
+                list.add(action.payload.id);
+            } else {
+                showToast(
+                    { message: "Removed movie from WatchList" },
+                    4,
+                    "warning"
+                );
+                list.delete(action.payload.id);
+            }
             const obj = {
                 list,
                 id: action.payload.id,
@@ -113,27 +110,31 @@ export function createStore(initialState: State, reducer: Function) {
 }
 
 export async function parseCSV(filePath: string) {
-    const response = await fetch(filePath);
-    const data = await response.text();
-    const lines = data.trim().split(/\r?\n/);
+    try {
+        const response = await fetch(filePath);
+        const data = await response.text();
+        const lines = data.trim().split(/\r?\n/);
 
-    const headers = parseLine(lines[0]);
-    const result = [];
+        const headers = parseLine(lines[0]);
+        const result = [];
 
-    for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
 
-        const values = parseLine(lines[i]);
-        const obj: Record<string, string> = {};
+            const values = parseLine(lines[i]);
+            const obj: Record<string, string> = {};
 
-        headers.forEach((header, index) => {
-            obj[header] = values[index] ?? "";
-        });
+            headers.forEach((header, index) => {
+                obj[header] = values[index] ?? "";
+            });
 
-        result.push(obj);
+            result.push(obj);
+        }
+
+        return result;
+    } catch (err) {
+        showToast(err as Error);
     }
-
-    return result;
 }
 
 function parseLine(line: string) {
@@ -202,7 +203,7 @@ export function showToast(
         toastColor = "#f5d97d;";
         toastProgressBar = "#ffc400;";
     }
-    https: toasterErrorMessage.textContent = err.message;
+    toasterErrorMessage.textContent = err.message;
     CSSstyle.textContent += `*{
       box-sizing: border-box;
      }

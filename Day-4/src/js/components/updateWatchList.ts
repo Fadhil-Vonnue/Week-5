@@ -1,4 +1,4 @@
-import { showToast } from "../utils.js";
+import { showToast } from "@utils";
 import { addToList } from "./addWatchlistCard.js";
 export async function updateWatchList(state: {
     list: Set<unknown>;

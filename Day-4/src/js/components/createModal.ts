@@ -1,5 +1,4 @@
-import { fetchJSON1, showToast } from "../utils.js";
-import { createSearchCard } from "./searchCards.js";
+import { searchMovies } from "./searchMovies.js";
 export function createModal() {
     const documentFragment1 = document.createElement("div");
     documentFragment1.classList.add("modalOverlay");
@@ -35,41 +34,10 @@ export function createModal() {
                     </div>
                 </div>
             `;
-    documentFragment1.querySelector("form")!.addEventListener("submit", (e) => {
-        e.preventDefault();
-    });
     documentFragment1
         .querySelector(".searchbutton")!
         .addEventListener("click", async (e) => {
-            const input = document.querySelector("#movie-input");
-            if (input instanceof HTMLInputElement) {
-                const value = input.value;
-                const form: Record<string, { value: string }> = {};
-                form["movieTitle"] = { value };
-                if (form["movieTitle"].value.length < 3) {
-                    showToast({ message: "Minlength is 3" });
-                } else {
-                    const data = await fetchJSON1(
-                        `https://www.omdbapi.com/?apikey=d65b40df&s=${form["movieTitle"].value}&page=1`
-                    );
-                    if (data.Response == "False") {
-                        alert(data.Error);
-                    } else {
-                        const mainElement =
-                            document.querySelector(".searchResults");
-                        if (mainElement instanceof HTMLElement) {
-                            mainElement.style.display = "flex";
-                            mainElement.innerHTML = ``;
-                            data.Search.forEach(
-                                (el: Record<string, string>) => {
-                                    const card1 = createSearchCard(el);
-                                    mainElement.appendChild(card1);
-                                }
-                            );
-                        }
-                    }
-                }
-            }
+            searchMovies();
         });
     return documentFragment1;
 }

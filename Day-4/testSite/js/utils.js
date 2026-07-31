@@ -1,3 +1,4 @@
+import { store } from "../main.js";
 export function registerPath(routes, path, component) {
     routes[path] = component;
 }
@@ -17,16 +18,14 @@ export async function navigate(routes, path, params) {
         return false;
     }
 }
-export async function fetchJSON(url1) {
-    try {
-        const url = ` https://www.omdbapi.com/?apikey=d65b40df&s=${url1}&page=1`;
-        const response = await fetch(url);
-        const data = response.json();
-        return data;
-    }
-    catch (err) {
-        console.error(err);
-    }
+export async function onRouteChange(path, params) {
+    await store.dispatch({
+        type: "ROUTE_CHANGED",
+        payload: {
+            path,
+            params,
+        },
+    });
 }
 export async function fetchJSON1(url) {
     try {
@@ -44,12 +43,14 @@ export function reducer(state, action) {
             return { ...state, route: action.payload };
         case "MOVIE_ADDED":
             const list = state.watchList.list;
-            console.log(list);
-            if (action.payload.type === "Add")
+            if (action.payload.type === "Add") {
+                showToast({ message: "Added movie to WatchList" }, 4, "success");
                 list.add(action.payload.id);
-            else
+            }
+            else {
+                showToast({ message: "Removed movie from WatchList" }, 4, "warning");
                 list.delete(action.payload.id);
-            console.log(list);
+            }
             const obj = {
                 list,
                 id: action.payload.id,
@@ -88,22 +89,27 @@ export function createStore(initialState, reducer) {
     };
 }
 export async function parseCSV(filePath) {
-    const response = await fetch(filePath);
-    const data = await response.text();
-    const lines = data.trim().split(/\r?\n/);
-    const headers = parseLine(lines[0]);
-    const result = [];
-    for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim())
-            continue;
-        const values = parseLine(lines[i]);
-        const obj = {};
-        headers.forEach((header, index) => {
-            obj[header] = values[index] ?? "";
-        });
-        result.push(obj);
+    try {
+        const response = await fetch(filePath);
+        const data = await response.text();
+        const lines = data.trim().split(/\r?\n/);
+        const headers = parseLine(lines[0]);
+        const result = [];
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim())
+                continue;
+            const values = parseLine(lines[i]);
+            const obj = {};
+            headers.forEach((header, index) => {
+                obj[header] = values[index] ?? "";
+            });
+            result.push(obj);
+        }
+        return result;
     }
-    return result;
+    catch (err) {
+        showToast(err);
+    }
 }
 function parseLine(line) {
     const values = [];
@@ -165,7 +171,7 @@ export function showToast(err, duration = 4, type = "error") {
         toastColor = "#f5d97d;";
         toastProgressBar = "#ffc400;";
     }
-    https: toasterErrorMessage.textContent = err.message;
+    toasterErrorMessage.textContent = err.message;
     CSSstyle.textContent += `*{
       box-sizing: border-box;
      }

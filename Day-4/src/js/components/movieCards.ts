@@ -1,4 +1,5 @@
-import { onMovieDelete, onRouteChange } from "../../main.js";
+import { onMovieDelete } from "../../main.js";
+import { onRouteChange } from "@utils";
 import { onMovieAdded } from "../../main.js";
 export function createCard(details: Record<string, string>) {
     const card = document.createElement("div");
@@ -43,12 +44,11 @@ export function createCard(details: Record<string, string>) {
     newimg.classList.add("addToFav-button");
     newimg.src = "../../assets/addtofav.svg";
     newimg.style.width = "20px";
-    newimg.addEventListener("click", (e) => {
-        if (e.currentTarget instanceof HTMLElement) {
-            const imbdbID = e.currentTarget.parentElement!.dataset.id;
-            if (typeof imbdbID === "string") onMovieAdded(imbdbID);
-            newimg.src = "../../assets/close.svg";
-        }
+    newimg.addEventListener("click", async (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const imbdbID = target.parentElement!.dataset.id;
+        if (typeof imbdbID === "string") await onMovieAdded(imbdbID);
+        newimg.src = "../../assets/close.svg";
     });
     card.appendChild(newimg);
     function handleImageError() {
@@ -57,10 +57,8 @@ export function createCard(details: Record<string, string>) {
     }
     card.dataset.id = details.imdbid;
     card.addEventListener("click", (e) => {
-        if (
-            e.target instanceof HTMLElement &&
-            e.target.className !== "addToFav-button"
-        ) {
+        const target = e.currentTarget as HTMLElement;
+        if (target.className !== "addToFav-button") {
             const url = `/detail/:${details.imdbid}`;
             history.pushState({}, "", url);
             const obj = { imdbID: details.imdbid };
@@ -113,13 +111,13 @@ export function createCard1(details: Record<string, string>) {
     newimg.src = "../../assets/close.svg";
     newimg.style.width = "20px";
     newimg.addEventListener("click", (e) => {
-        console.log("DELETE");
         onMovieDelete(details.id);
         document
             .querySelector(`.results[data-id=${details.id}]`)!
             .querySelector(".AddButton")!
             .querySelector("img")!.style.display = "flex";
     });
+
     card.appendChild(newimg);
     function handleImageError() {
         cardImg.onerror = null;

@@ -1,5 +1,5 @@
 import { addToList } from "./addWatchlistCard.js";
-import { fetchJSON1 } from "../utils.js";
+import { fetchJSON1 } from "@utils";
 import { createCard1 } from "./movieCards.js";
 export async function isWatchList() {
     if (!document.location.pathname.includes("watchlist")) return;

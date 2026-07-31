@@ -1,4 +1,4 @@
-import { fetchJSON1 } from "../utils.js";
+import { fetchJSON1 } from "@utils";
 import { createCard1 } from "./movieCards.js";
 
 export async function addToList(id: string) {

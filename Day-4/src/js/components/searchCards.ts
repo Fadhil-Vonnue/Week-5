@@ -1,7 +1,5 @@
-import { fetchJSON } from "../utils.js";
-import { addToList } from "./addWatchlistCard.js";
-import { onMovieAdded } from "../../main.js";
-const movieList = new Set();
+import { searchCardMovieAdded } from "./searchCardMovieAdded.js";
+let movieList: Set<string> = new Set();
 export function createSearchCard(details: Record<string, string>) {
     const card = document.createElement("div");
     card.classList.add("results");
@@ -20,16 +18,9 @@ export function createSearchCard(details: Record<string, string>) {
     svg.style.width = "20px";
     svg.style.height = "20px";
     burron.classList.add("AddButton");
-    burron.addEventListener("click", (e) => {
-        if (e.currentTarget instanceof HTMLElement) {
-            const imbdbID =
-                e.currentTarget.parentElement!.parentElement!.dataset.id!;
-            movieList.add(imbdbID);
-            onMovieAdded(imbdbID);
-            svg.style.display = "none";
-            e.currentTarget.parentElement!.parentElement!.parentElement!.parentElement!.parentElement!.parentElement!.parentElement!.parentElement!.style.display =
-                "none";
-        }
+    burron.addEventListener("click", async (e) => {
+        const currTarget = e.currentTarget as HTMLElement;
+        movieList = await searchCardMovieAdded(currTarget, movieList, svg);
     });
     div.appendChild(burron);
     card.appendChild(div);

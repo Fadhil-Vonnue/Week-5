@@ -1,16 +1,15 @@
-import { navigate } from "./js/utils.js";
-import { registerPath } from "./js/utils.js";
-import { renderHomePage } from "./js/pages/home.js";
-import { renderDetailPage } from "./js/pages/detail.js";
-import { renderListPage } from "./js/pages/list.js";
-import { renderSettingsPage } from "./js/pages/settings.js";
-import { createStore, reducer } from "./js/utils.js";
-import { createCard } from "./js/components/movieCards.js";
-import { renderWatchListPage } from "./js/pages/watchlist.js";
-import { fetchJSON } from "./js/utils.js";
-import { createSearchCard } from "./js/components/searchCards.js";
-import { updateWatchList } from "./js/components/updateWatchList.js";
-import { isWatchList } from "./js/components/isWatchList.js";
+import { navigate } from "@utils";
+import { registerPath } from "@utils";
+import { renderHomePage } from "@pages/home.js";
+import { renderDetailPage } from "@pages/detail.js";
+import { renderListPage } from "@pages/list.js";
+import { renderSettingsPage } from "@pages/settings.js";
+import { createStore, reducer } from "@utils";
+import { renderWatchListPage } from "@pages/watchlist.js";
+import { updateWatchList } from "@components/updateWatchList.js";
+import { isWatchList } from "@components/isWatchList.js";
+import { onRouteChange } from "@utils";
+import { obj1, State } from "./types.js";
 const initialState: State = {
     route: {
         path: "/home",
@@ -23,22 +22,10 @@ const initialState: State = {
     },
 };
 
-interface State {
-    route: {
-        path: string;
-        params: obj1;
-    };
-    watchList: {
-        list: Set<unknown>;
-        id: string;
-        type: string;
-    };
-}
-
 const localData = localStorage.getItem("watchList");
 let datas;
 
-if (localData) datas = await JSON.parse(localData);
+if (localData) datas = JSON.parse(localData);
 
 if (datas) {
     initialState.watchList.list = new Set(datas);
@@ -58,24 +45,27 @@ registerPath(routes, "/settings", renderSettingsPage);
 
 registerPath(routes, "/watchlist", renderWatchListPage);
 
-document.querySelectorAll("a").forEach((el) => {
-    el.addEventListener("click", (e) => {
-        if (e.currentTarget instanceof HTMLElement) {
+export function anchorRouteListener() {
+    document.querySelectorAll("a").forEach((el) => {
+        el.addEventListener("click", async (e) => {
+            const target = e.currentTarget as HTMLElement;
+
             e.preventDefault();
-            const url = `/${e.currentTarget.id}`;
+            const url = `/${target.id}`;
             if (url !== document.location.pathname) {
                 history.pushState({}, "", url);
-                onRouteChange(document.location.pathname, {});
+                await onRouteChange(document.location.pathname, {});
             }
-        }
+        });
     });
-});
+}
+anchorRouteListener();
 
-window.onload = (e) => {
-    init();
+window.onload = async (e) => {
+    await init();
 };
 
-function init() {
+export async function init() {
     let pathname = document.location.pathname;
     let obj: obj1 = {};
     if (pathname.includes(":")) {
@@ -85,11 +75,11 @@ function init() {
         obj = { imdbID: imdbId };
     }
     if (allRoutes.includes(pathname)) {
-        onRouteChange(pathname, obj);
+        await onRouteChange(pathname, obj);
     } else {
         try {
             const url = `/home`;
-            onRouteChange(`/home`, obj);
+            await onRouteChange(`/home`, obj);
             history.replaceState({}, "", url);
         } catch (err) {
             alert(err);
@@ -97,22 +87,8 @@ function init() {
     }
 }
 
-type obj1 = {
-    imdbID?: string;
-};
-
-export function onRouteChange(path: string, params: obj1) {
-    store.dispatch({
-        type: "ROUTE_CHANGED",
-        payload: {
-            path,
-            params,
-        },
-    });
-}
-
-export function onMovieAdded(movieId: string) {
-    store.dispatch({
+export async function onMovieAdded(movieId: string) {
+    await store.dispatch({
         type: "MOVIE_ADDED",
         payload: {
             id: movieId,
@@ -132,12 +108,12 @@ export function onMovieDelete(movieId: string) {
 }
 
 store.subscribe("ROUTE_CHANGED", async (state: State) => {
-    navigate(routes, state.route.path, state.route.params);
+    await navigate(routes, state.route.path, state.route.params);
     await isWatchList();
 });
 
-store.subscribe("MOVIE_ADDED", (state: State) => {
-    updateWatchList(state.watchList);
+store.subscribe("MOVIE_ADDED", async (state: State) => {
+    await updateWatchList(state.watchList);
 });
 
 window.onpopstate = (event) => {
@@ -146,16 +122,17 @@ window.onpopstate = (event) => {
 
 window.addEventListener("keydown", (e) => {
     if (document.location.pathname.includes("watchlist")) {
-        const overlay = document.querySelector(".modalOverlay");
-        if (overlay instanceof HTMLElement) {
-            if (overlay.style.display === "flex")
-                if (e.key === "Escape") {
-                    overlay.style.display = "none";
-                }
-            if (e.key === "Enter") {
-                const searchBut = overlay.querySelector(".searchbutton");
-                searchBut instanceof HTMLElement ? searchBut.click() : null;
+        const overlay = document.querySelector(".modalOverlay") as HTMLElement;
+
+        if (overlay.style.display === "flex")
+            if (e.key === "Escape") {
+                overlay.style.display = "none";
             }
+        if (e.key === "Enter") {
+            const searchBut = overlay.querySelector(
+                ".searchbutton"
+            ) as HTMLElement;
+            searchBut.click();
         }
     }
 });
