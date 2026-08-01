@@ -1,10 +1,14 @@
 import { navigate } from "../js/utils.js";
 import { registerPath } from "../js/utils.js";
-import { renderWatchListPage } from "../js/pages/watchlist";
-import { isWatchList } from "../js/components/isWatchList";
+import { renderWatchListPage } from "../js/pages/watchlist.js";
+import { isWatchList } from "../js/components/isWatchList.js";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
+import "../main";
 describe("Search Movies", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -81,8 +85,6 @@ describe("Search Movies", () => {
     });
     test("test is Watchlist", async () => {
         localStorage.setItem("watchList", JSON.stringify(["tt0111161"]));
-        console.log(localStorage.getItem("watchList"), "HEYY");
-        console.log(document.location.pathname);
         await isWatchList();
     });
 });

@@ -1,22 +1,15 @@
-import { renderHomePage } from "@pages/home";
-import { createStore, navigate } from "@utils";
+import { navigate } from "@utils";
 import { registerPath } from "@utils";
-import { renderDetailPage } from "@pages/detail";
-import { onRouteChange } from "@utils";
-
 import { renderListPage } from "@pages/list";
-import { renderSettingsPage } from "@pages/settings";
-import { renderWatchListPage } from "@pages/watchlist";
-import { parseCSV } from "@utils";
-import { reducer } from "@utils";
 import { store } from "../main";
-import { onMovieAdded } from "../main";
-import { updateWatchList } from "@components/updateWatchList";
-import * as utilModule from "@utils";
-
+import "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
+
 describe("Test state manager", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -78,7 +71,6 @@ describe("Test state manager", () => {
             </div>
         </div>`;
     let routes: Record<string, Function> = {};
-    // let routes = {};
     const initialState = {
         route: {
             path: "/home",
@@ -92,17 +84,6 @@ describe("Test state manager", () => {
     };
     let a = 20;
 
-    // document.querySelectorAll(".addToFav-button").forEach((el) => {
-    //     el.addEventListener("click", (e) => {
-    //         console.log("INSIDE LISTERNER");
-    //         if (e.currentTarget instanceof HTMLImageElement) {
-    //             const imbdbID = e.currentTarget!.parentElement!.dataset.id;
-    //             console.log(imbdbID);
-    //             if (typeof imbdbID === "string") onMovieAdded(imbdbID);
-    //             e.currentTarget.src = "assets/close.svg";
-    //         }
-    //     });
-    // });
     test("test list register", () => {
         let path = "/list";
         registerPath(routes, path, renderListPage);
@@ -110,20 +91,13 @@ describe("Test state manager", () => {
     });
     test("navigate to List without params", async () => {
         const res = await navigate(routes, "/list", {});
-        console.log(document.location.pathname);
         expect(res).toBe(true);
     });
     test("test movie dispatch", async () => {
-        console.log(
-            "DATA ID",
-            document.querySelector(".addToFav-button")!.parentElement!.dataset
-                .id
-        );
         const faveBut = document.querySelector(".addToFav-button");
         if (faveBut instanceof HTMLElement) faveBut.click();
         let state = store.getState();
         const list1 = [...state.watchList.list];
-        console.log(state.watchList);
         expect(list1[0]).toBe("tt0111161");
     });
     test("test movie already in watchlist", async () => {

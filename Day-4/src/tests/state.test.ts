@@ -1,17 +1,15 @@
-import { renderHomePage } from "@pages/home";
-import { createStore, navigate } from "@utils";
+import { navigate } from "@utils";
 import { registerPath } from "@utils";
 import { onRouteChange } from "@utils";
-import { renderDetailPage } from "@pages/detail";
-import { renderListPage } from "@pages/list";
-import { renderSettingsPage } from "@pages/settings";
 import { renderWatchListPage } from "@pages/watchlist";
-import { parseCSV } from "@utils";
-import { reducer } from "@utils";
 import { onMovieAdded, store } from "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
+import "../main";
 describe("Test state manager", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -103,7 +101,6 @@ describe("Test state manager", () => {
         let obj = {};
         await onRouteChange(pathname, obj);
         let state = store.getState();
-        console.log(state);
         expect(fn).toHaveBeenCalled();
     });
     test("test dispatch", async () => {
@@ -111,12 +108,8 @@ describe("Test state manager", () => {
             console.log("HEYY MOVIE ADDED");
         });
         store.subscribe("MOVIE_ADDED", fn);
-        let pathname = "/home";
-        let obj = {};
         await onMovieAdded("tt0111161");
         let state = store.getState();
-        console.log(state);
-
         expect(state.watchList.list).toContain("tt0111161");
         expect(fn).toHaveBeenCalled();
     });

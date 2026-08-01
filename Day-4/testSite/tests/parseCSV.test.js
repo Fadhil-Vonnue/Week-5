@@ -4,8 +4,12 @@ import { registerPath } from "../js/utils.js";
 import { renderListPage } from "../js/pages/list";
 import * as utilModule from "../js/utils.js";
 const fetch = require("cross-fetch");
+import "../main";
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>

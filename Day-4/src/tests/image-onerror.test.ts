@@ -8,9 +8,13 @@ import { renderWatchListPage } from "@pages/watchlist";
 import { searchMovies } from "@components/searchMovies";
 import { addToList } from "@components/addWatchlistCard";
 import * as mainModule from "../main";
+import "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -116,7 +120,6 @@ describe("Test Routing", () => {
         const spy = jest
             .spyOn(mainModule, "onMovieDelete")
             .mockImplementation(() => "hello");
-        console.log(document.body.innerHTML);
         const but = document.querySelector(".addToFav-button")! as HTMLElement;
         but.click();
         expect(spy).toHaveBeenCalled();

@@ -1,9 +1,13 @@
 import { init } from "../main";
 import { anchorRouteListener } from "../main";
 import * as utilModule from "../js/utils.js";
+import "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     let routes = {};
     document.body.innerHTML = `        <header>
         <div class="navLeft">

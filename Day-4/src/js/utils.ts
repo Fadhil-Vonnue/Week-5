@@ -28,7 +28,6 @@ export async function navigate(
     }
 }
 export async function onRouteChange(path: string, params: obj1) {
-
     await store.dispatch({
         type: "ROUTE_CHANGED",
         payload: {
@@ -37,7 +36,6 @@ export async function onRouteChange(path: string, params: obj1) {
         },
     });
 }
-
 
 export async function fetchJSON1(url: string) {
     try {

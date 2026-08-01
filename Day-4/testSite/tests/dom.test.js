@@ -6,10 +6,14 @@ import { renderListPage } from "../js/pages/list";
 import { renderSettingsPage } from "../js/pages/settings";
 import { renderWatchListPage } from "../js/pages/watchlist";
 import { searchMovies } from "../js/components/searchMovies";
+import "../main";
 jest.mock("@components/searchMovies");
 const fetch = require("cross-fetch");
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -96,7 +100,6 @@ describe("Test Routing", () => {
     test("test detail register", () => {
         let path = "/detail";
         registerPath(routes, path, renderDetailPage);
-        console.log(document.location.href);
         expect(routes[path]).toBe(renderDetailPage);
     });
     test("navigate to Home without params", async () => {

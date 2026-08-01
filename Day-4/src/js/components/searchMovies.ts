@@ -18,6 +18,7 @@ export async function searchMovies() {
             const mainElement = document.querySelector(
                 ".searchResults"
             ) as HTMLElement;
+
             mainElement.style.display = "flex";
             mainElement.innerHTML = ``;
             data.Search.forEach((el: Record<string, string>) => {
