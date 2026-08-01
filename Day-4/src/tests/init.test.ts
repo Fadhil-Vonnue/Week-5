@@ -1,18 +1,13 @@
-import { renderHomePage } from "@pages/home";
-import { navigate } from "@utils";
-import { registerPath } from "@utils";
-import { renderDetailPage } from "@pages/detail";
-import { renderListPage } from "@pages/list";
-import { renderSettingsPage } from "@pages/settings";
-import { renderWatchListPage } from "@pages/watchlist";
-import { searchMovies } from "@components/searchMovies";
-import { store } from "../main";
 import { init } from "../main";
 import { anchorRouteListener } from "../main";
 import * as utilModule from "@utils";
+import "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     let routes: Record<string, Function> = {};
     document.body.innerHTML = `        <header>
         <div class="navLeft">

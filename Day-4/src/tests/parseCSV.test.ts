@@ -1,15 +1,15 @@
 import { renderHomePage } from "@pages/home";
 import { navigate } from "@utils";
 import { registerPath } from "@utils";
-import { renderDetailPage } from "@pages/detail";
 import { renderListPage } from "@pages/list";
-import { renderSettingsPage } from "@pages/settings";
-import { renderWatchListPage } from "@pages/watchlist";
-import { searchMovies } from "../js/components/searchMovies";
 import * as utilModule from "@utils";
 const fetch = require("cross-fetch");
+import "../main";
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>

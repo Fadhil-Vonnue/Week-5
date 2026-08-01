@@ -3,9 +3,13 @@ import { registerPath } from "../js/utils.js";
 import { renderListPage } from "../js/pages/list";
 import { addToList } from "../js/components/addWatchlistCard";
 import * as mainModule from "../main";
+import "../main";
 const fetch = require("cross-fetch");
 global.fetch = fetch;
 describe("Test Routing", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -111,7 +115,6 @@ describe("Test Routing", () => {
         const spy = jest
             .spyOn(mainModule, "onMovieDelete")
             .mockImplementation(() => "hello");
-        console.log(document.body.innerHTML);
         const but = document.querySelector(".addToFav-button");
         but.click();
         expect(spy).toHaveBeenCalled();

@@ -8,8 +8,12 @@ import { searchCardMovieAdded } from "@components/searchCardMovieAdded";
 import * as utilModule from "@utils";
 jest.mock("@components/searchCardMovieAdded");
 const fetch = require("cross-fetch");
+import "../main";
 global.fetch = fetch;
 describe("Search Movies", () => {
+    beforeEach(() => {
+        window.onload = null;
+    });
     document.body.innerHTML = `        <header>
             <div class="navLeft">
                 <a id="home" href="">Home</a>
@@ -139,7 +143,6 @@ describe("Search Movies", () => {
         ).toBe(0);
     });
     test("call function to add movies to watchlist from search results", () => {
-        console.log(store.getState());
         const but = document.querySelector(".AddButton");
         if (but instanceof HTMLElement) but.click();
         const state = store.getState();

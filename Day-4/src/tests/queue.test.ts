@@ -1,5 +1,5 @@
 import { Queue } from "./queue";
-
+import "../main";
 describe("testing Queue functions", () => {
     let queue = new Queue<string>();
     test("enqueue data", () => {
