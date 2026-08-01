@@ -14,15 +14,15 @@ jobs:
 
             - name: install dependencies
               run: npm ci
-              working-directory: ./day4
+              working-directory: ./Day-4
 
             - name: Start local server
               run: npx http-server -p 8080 &
-              working-directory: ./day4/dist
+              working-directory: ./Day-4/testSite
 
             - name: verify code
               run: |
                   tsc --noEmit
                   npx eslint
                   npx jest --coverage .
-              working-directory: ./day4
+              working-directory: ./Day-4
