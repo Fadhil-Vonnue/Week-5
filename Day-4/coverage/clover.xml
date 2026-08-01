@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1785599666653" clover="3.2.0">
-  <project timestamp="1785599666653" name="All files">
-    <metrics statements="554" coveredstatements="534" conditionals="93" coveredconditionals="74" methods="56" coveredmethods="51" elements="703" coveredelements="659" complexity="0" loc="554" ncloc="554" packages="5" files="17" classes="17"/>
+<coverage generated="1785608986159" clover="3.2.0">
+  <project timestamp="1785608986159" name="All files">
+    <metrics statements="555" coveredstatements="535" conditionals="93" coveredconditionals="74" methods="56" coveredmethods="51" elements="704" coveredelements="660" complexity="0" loc="555" ncloc="555" packages="5" files="17" classes="17"/>
     <package name="src">
       <metrics statements="71" coveredstatements="62" conditionals="18" coveredconditionals="12" methods="11" coveredmethods="8"/>
       <file name="main.ts" path="/home/mohammad.fadhil/Desktop/Week-5/Day-4/src/main.ts">
@@ -201,18 +201,19 @@
       </file>
     </package>
     <package name="src.js.components">
-      <metrics statements="220" coveredstatements="218" conditionals="26" coveredconditionals="20" methods="19" coveredmethods="18"/>
+      <metrics statements="221" coveredstatements="219" conditionals="26" coveredconditionals="20" methods="19" coveredmethods="18"/>
       <file name="addWatchlistCard.ts" path="/home/mohammad.fadhil/Desktop/Week-5/Day-4/src/js/components/addWatchlistCard.ts">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="11" type="stmt"/>
         <line num="2" count="11" type="stmt"/>
         <line num="4" count="11" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
         <line num="16" count="3" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
       </file>
       <file name="createButton.ts" path="/home/mohammad.fadhil/Desktop/Week-5/Day-4/src/js/components/createButton.ts">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>

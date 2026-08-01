@@ -8,6 +8,12 @@ describe("Test Routing", () => {
     beforeEach(() => {
         window.onload = null;
     });
+    afterEach(() => {
+        jest.resetAllMocks();
+        jest.clearAllMocks();
+        history.replaceState({}, "", "/");
+        localStorage.clear();
+    });
     const routes: Record<string, Function> = {};
     document.body.innerHTML = `        <header>
         <div class="navLeft">
@@ -70,16 +76,20 @@ describe("Test Routing", () => {
         </div>
     </div>`;
     test("test init redirect routing", async () => {
+        console.log(document.location.pathname, location.pathname);
         const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/hello");
         await init();
         expect(spy).toHaveBeenCalled();
+        console.log(document.location.pathname, location.pathname);
     });
     test("test init params routing", async () => {
+        console.log(document.location.pathname, location.pathname);
         const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/detail/:tt0111161");
         await init();
         expect(spy).toHaveBeenCalled();
+        console.log(document.location.pathname, location.pathname);
     });
     test("test init home routing", async () => {
         const spy = jest.spyOn(utilModule, "onRouteChange");
