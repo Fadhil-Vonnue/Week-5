@@ -8,7 +8,7 @@ describe("Test Routing", () => {
     beforeEach(() => {
         window.onload = null;
     });
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     document.body.innerHTML = `        <header>
         <div class="navLeft">
             <a id="home" href="">Home</a>
@@ -70,26 +70,26 @@ describe("Test Routing", () => {
         </div>
     </div>`;
     test("test init redirect routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/hello");
         await init();
         expect(spy).toHaveBeenCalled();
     });
     test("test init params routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/detail/:tt0111161");
         await init();
         expect(spy).toHaveBeenCalled();
     });
     test("test init home routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/home");
         await init();
         expect(spy).toHaveBeenCalled();
     });
     test("anchr link route", () => {
         anchorRouteListener();
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         document.querySelector("a")?.click();
         expect(spy).toHaveBeenCalled();
     });

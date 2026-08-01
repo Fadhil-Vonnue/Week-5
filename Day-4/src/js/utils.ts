@@ -13,7 +13,7 @@ export async function navigate(
     path: string,
     params: obj1
 ) {
-    let fn = routes[path];
+    const fn = routes[path];
     if (fn) {
         if (params !== undefined && Object.keys(params).length !== 0) {
             await fn(params.imdbID);
@@ -79,7 +79,7 @@ export function reducer(state: State, action: Action) {
 }
 export function createStore(initialState: State, reducer: Function) {
     let state = initialState;
-    let listeners: Record<string, Array<Function>> = {};
+    const listeners: Record<string, Array<Function>> = {};
     return {
         getState() {
             return state;
@@ -93,9 +93,9 @@ export function createStore(initialState: State, reducer: Function) {
                 return;
             }
             state = reducer(state, action);
-            let allListeners = listeners[action.type];
+            const allListeners = listeners[action.type];
 
-            for (let listener of allListeners) {
+            for (const listener of allListeners) {
                 await listener(state);
             }
         },

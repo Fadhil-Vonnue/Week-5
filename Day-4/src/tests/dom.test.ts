@@ -74,32 +74,32 @@ describe("Test Routing", () => {
                 </div>
             </div>
         </div>`;
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     // let routes = {};
-    let a = 20;
+    const a = 20;
 
     test("test home register", () => {
-        let path = "/home";
+        const path = "/home";
         registerPath(routes, path, renderHomePage);
         expect(routes[path]).toBe(renderHomePage);
     });
     test("test list register", () => {
-        let path = "/list";
+        const path = "/list";
         registerPath(routes, path, renderListPage);
         expect(routes[path]).toBe(renderListPage);
     });
     test("test list register", () => {
-        let path = "/settings";
+        const path = "/settings";
         registerPath(routes, path, renderSettingsPage);
         expect(routes[path]).toBe(renderSettingsPage);
     });
     test("test list register", () => {
-        let path = "/watchlist";
+        const path = "/watchlist";
         registerPath(routes, path, renderWatchListPage);
         expect(routes[path]).toBe(renderWatchListPage);
     });
     test("test detail register", () => {
-        let path = "/detail";
+        const path = "/detail";
         registerPath(routes, path, renderDetailPage);
         expect(routes[path]).toBe(renderDetailPage);
     });

@@ -69,9 +69,9 @@ export async function init() {
     let pathname = document.location.pathname;
     let obj: obj1 = {};
     if (pathname.includes(":")) {
-        let pathnames = pathname.split("/");
+        const pathnames = pathname.split("/");
         pathname = pathnames.slice(0, -1).join("/");
-        let imdbId = pathnames[pathnames.length - 1].slice(1);
+        const imdbId = pathnames[pathnames.length - 1].slice(1);
         obj = { imdbID: imdbId };
     }
     if (allRoutes.includes(pathname)) {

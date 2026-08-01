@@ -9,8 +9,8 @@ export class ApiClient {
     }
 
     async requestInterceptor<T>(path: string, option: object): Promise<T> {
-        let url = this.baseUrl + path;
-        let result = await fetchJSON<T>(url, option);
+        const url = this.baseUrl + path;
+        const result = await fetchJSON<T>(url, option);
         return this.responseInterceptor(result);
     }
     async get<T>(path: string): Promise<T> {
@@ -55,13 +55,13 @@ async function fetchJSON<T>(url: string, options?: object): Promise<T> {
 }
 const MockApiClient = new ApiClient("https://jsonplaceholder.typicode.com");
 
-let body = JSON.stringify({
+const body = JSON.stringify({
     title: "title1",
     body: "TEXT",
     userId: 101,
     id: 104,
 });
-let body1 = JSON.stringify({
+const body1 = JSON.stringify({
     id: 1,
     name: "TEST",
     userId: 102,

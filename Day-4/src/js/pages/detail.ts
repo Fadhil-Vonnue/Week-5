@@ -13,7 +13,7 @@ export async function renderDetailPage(imdbID: string) {
 
     const newCard = newDiv.cloneNode(true) as HTMLElement;
 
-    let imgElement = newCard.querySelector(
+    const imgElement = newCard.querySelector(
         ".detailed-card-img img"
     ) as HTMLImageElement;
     imgElement.src = details.Poster;

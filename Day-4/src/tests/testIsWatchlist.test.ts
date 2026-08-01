@@ -69,9 +69,9 @@ describe("Search Movies", () => {
                 </div>
             </div>
         </div>`;
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     test("test list register", () => {
-        let path = "/watchlist";
+        const path = "/watchlist";
         registerPath(routes, path, renderWatchListPage);
         expect(routes[path]).toBe(renderWatchListPage);
     });

@@ -5,7 +5,7 @@ export async function updateWatchList(state: {
     id: string;
     type: string;
 }) {
-    let list = state.list;
+    const list = state.list;
     const imdbID = state.id;
     if (state.type === "Add") {
         if (document.location.pathname.includes("watchlist"))
