@@ -70,17 +70,17 @@ describe("Test Routing", () => {
                 </div>
             </div>
         </div>`;
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     // let routes = {};
-    let a = 20;
+    const a = 20;
 
     test("test home register", () => {
-        let path = "/home";
+        const path = "/home";
         registerPath(routes, path, renderHomePage);
         expect(routes[path]).toBe(renderHomePage);
     });
     test("test list register", () => {
-        let path = "/list";
+        const path = "/list";
         registerPath(routes, path, renderListPage);
         expect(routes[path]).toBe(renderListPage);
     });

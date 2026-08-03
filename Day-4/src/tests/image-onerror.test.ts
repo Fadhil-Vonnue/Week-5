@@ -75,9 +75,9 @@ describe("Test Routing", () => {
                 </div>
             </div>
         </div>`;
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     test("test list register", () => {
-        let path = "/list";
+        const path = "/list";
         registerPath(routes, path, renderListPage);
         expect(routes[path]).toBe(renderListPage);
     });

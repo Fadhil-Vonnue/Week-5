@@ -81,10 +81,10 @@ describe("Test state manager", () => {
             type: "Add",
         },
     };
-    let routes: Record<string, Function> = {};
-    let a = 20;
+    const routes: Record<string, Function> = {};
+    const a = 20;
     test("test list register", () => {
-        let path = "/watchlist";
+        const path = "/watchlist";
         registerPath(routes, path, renderWatchListPage);
         expect(routes[path]).toBe(renderWatchListPage);
     });
@@ -97,10 +97,10 @@ describe("Test state manager", () => {
             console.log("HEYY JEST");
         });
         store.subscribe("ROUTE_CHANGED", fn);
-        let pathname = "/home";
-        let obj = {};
+        const pathname = "/home";
+        const obj = {};
         await onRouteChange(pathname, obj);
-        let state = store.getState();
+        const state = store.getState();
         expect(fn).toHaveBeenCalled();
     });
     test("test dispatch", async () => {
@@ -109,7 +109,7 @@ describe("Test state manager", () => {
         });
         store.subscribe("MOVIE_ADDED", fn);
         await onMovieAdded("tt0111161");
-        let state = store.getState();
+        const state = store.getState();
         expect(state.watchList.list).toContain("tt0111161");
         expect(fn).toHaveBeenCalled();
     });

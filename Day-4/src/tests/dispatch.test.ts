@@ -70,7 +70,7 @@ describe("Test state manager", () => {
                 </div>
             </div>
         </div>`;
-    let routes: Record<string, Function> = {};
+    const routes: Record<string, Function> = {};
     const initialState = {
         route: {
             path: "/home",
@@ -82,10 +82,10 @@ describe("Test state manager", () => {
             type: "Add",
         },
     };
-    let a = 20;
+    const a = 20;
 
     test("test list register", () => {
-        let path = "/list";
+        const path = "/list";
         registerPath(routes, path, renderListPage);
         expect(routes[path]).toBe(renderListPage);
     });
@@ -96,14 +96,14 @@ describe("Test state manager", () => {
     test("test movie dispatch", async () => {
         const faveBut = document.querySelector(".addToFav-button");
         if (faveBut instanceof HTMLElement) faveBut.click();
-        let state = store.getState();
+        const state = store.getState();
         const list1 = [...state.watchList.list];
         expect(list1[0]).toBe("tt0111161");
     });
     test("test movie already in watchlist", async () => {
         const faveBut = document.querySelector(".addToFav-button");
         if (faveBut instanceof HTMLElement) faveBut.click();
-        let state = store.getState();
+        const state = store.getState();
         const list1 = [...state.watchList.list];
         expect(list1.length).toBe(1);
     });

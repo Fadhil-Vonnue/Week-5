@@ -4,6 +4,7 @@ import { createCard1 } from "./movieCards.js";
 export async function addToList(id: string) {
     const url = `https://www.omdbapi.com/?apikey=d65b40df&i=${id}`;
     const data = await fetchJSON1(url);
+    console.log(data);
     const card = createCard1({
         title: data.Title,
         year: data.Year,

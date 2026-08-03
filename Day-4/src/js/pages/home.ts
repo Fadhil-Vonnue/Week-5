@@ -2,9 +2,9 @@ import { parseCSV, showToast } from "@utils";
 import { createCard } from "@components/movieCards.js";
 
 export async function renderHomePage() {
-    let div = document.createElement("div");
+    const div = document.createElement("div");
     div.classList.add("hero");
-    let img = document.createElement("img");
+    const img = document.createElement("img");
     img.src = "../../assets/collage.jpg";
     let div1 = document.createElement("div");
     div1.classList.add("fade-overlay");

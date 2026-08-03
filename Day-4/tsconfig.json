@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        // "strictBindCallApply": true,
+        // "strictFunctionTypes": true,
+        // "strictNullChecks": true,
+        // "noImplicitAny": true,
+        // "noUncheckedIndexedAccess": true,
+        // "moduleResolution": "bundler",
+        "experimentalDecorators": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "outDir": "testSite",
+        "rootDir": "src",
+        "types": ["node", "jest"],
+        "paths": {
+            "@pages/*": ["./src/js/pages/*"],
+            "@components/*": ["./src/js/components/*"],
+            "@utils": ["./src/js/utils.js"]
+        },
+        "declaration": true
+        // "allowJs": true,
+        // "checkJs": true
+    }
+
+    // "include": ["./src/types/test_library", "**/*.ts", "./lib/**.ts"]
+}

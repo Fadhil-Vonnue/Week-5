@@ -8,7 +8,13 @@ describe("Test Routing", () => {
     beforeEach(() => {
         window.onload = null;
     });
-    let routes: Record<string, Function> = {};
+    afterEach(() => {
+        jest.resetAllMocks();
+        jest.clearAllMocks();
+        history.replaceState({}, "", "/");
+        localStorage.clear();
+    });
+    const routes: Record<string, Function> = {};
     document.body.innerHTML = `        <header>
         <div class="navLeft">
             <a id="home" href="">Home</a>
@@ -70,26 +76,30 @@ describe("Test Routing", () => {
         </div>
     </div>`;
     test("test init redirect routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        console.log(document.location.pathname, location.pathname);
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/hello");
         await init();
         expect(spy).toHaveBeenCalled();
+        console.log(document.location.pathname, location.pathname);
     });
     test("test init params routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        console.log(document.location.pathname, location.pathname);
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/detail/:tt0111161");
         await init();
         expect(spy).toHaveBeenCalled();
+        console.log(document.location.pathname, location.pathname);
     });
     test("test init home routing", async () => {
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         history.pushState({}, "", "/home");
         await init();
         expect(spy).toHaveBeenCalled();
     });
     test("anchr link route", () => {
         anchorRouteListener();
-        let spy = jest.spyOn(utilModule, "onRouteChange");
+        const spy = jest.spyOn(utilModule, "onRouteChange");
         document.querySelector("a")?.click();
         expect(spy).toHaveBeenCalled();
     });

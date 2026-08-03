@@ -1,5 +1,5 @@
 TN:
-SF:main.ts
+SF:src/main.ts
 FN:48,anchorRouteListener
 FN:49,(anonymous_1)
 FN:50,(anonymous_2)
@@ -119,7 +119,7 @@ BRF:18
 BRH:12
 end_of_record
 TN:
-SF:js/utils.ts
+SF:src/js/utils.ts
 FN:3,registerPath
 FN:11,navigate
 FN:30,onRouteChange
@@ -314,7 +314,7 @@ BRF:43
 BRH:37
 end_of_record
 TN:
-SF:js/components/addWatchlistCard.ts
+SF:src/js/components/addWatchlistCard.ts
 FN:4,addToList
 FNF:1
 FNH:1
@@ -325,16 +325,17 @@ DA:4,11
 DA:5,3
 DA:6,3
 DA:7,3
-DA:15,3
+DA:8,3
 DA:16,3
 DA:17,3
-LF:9
-LH:9
+DA:18,3
+LF:10
+LH:10
 BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/components/createButton.ts
+SF:src/js/components/createButton.ts
 FN:1,createButton
 FNF:1
 FNH:1
@@ -355,7 +356,7 @@ BRF:2
 BRH:2
 end_of_record
 TN:
-SF:js/components/createModal.ts
+SF:src/js/components/createModal.ts
 FN:2,createModal
 FN:39,(anonymous_1)
 FNF:2
@@ -376,7 +377,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/components/isWatchList.ts
+SF:src/js/components/isWatchList.ts
 FN:4,isWatchList
 FNF:1
 FNH:1
@@ -412,7 +413,7 @@ BRF:6
 BRH:4
 end_of_record
 TN:
-SF:js/components/movieCards.ts
+SF:src/js/components/movieCards.ts
 FN:4,createCard
 FN:47,(anonymous_1)
 FN:54,handleImageError
@@ -554,7 +555,7 @@ BRF:8
 BRH:4
 end_of_record
 TN:
-SF:js/components/searchCardMovieAdded.ts
+SF:src/js/components/searchCardMovieAdded.ts
 FN:2,searchCardMovieAdded
 FNF:1
 FNH:1
@@ -573,7 +574,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/components/searchCards.ts
+SF:src/js/components/searchCards.ts
 FN:3,createSearchCard
 FN:21,(anonymous_1)
 FN:27,handleImageError
@@ -616,7 +617,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/components/searchMovies.ts
+SF:src/js/components/searchMovies.ts
 FN:3,searchMovies
 FN:24,(anonymous_1)
 FNF:2
@@ -651,7 +652,7 @@ BRF:4
 BRH:4
 end_of_record
 TN:
-SF:js/components/updateWatchList.ts
+SF:src/js/components/updateWatchList.ts
 FN:3,updateWatchList
 FNF:1
 FNH:1
@@ -679,7 +680,7 @@ BRF:6
 BRH:6
 end_of_record
 TN:
-SF:js/pages/detail.ts
+SF:src/js/pages/detail.ts
 FN:2,renderDetailPage
 FNF:1
 FNH:1
@@ -718,7 +719,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/pages/home.ts
+SF:src/js/pages/home.ts
 FN:4,renderHomePage
 FNF:1
 FNH:1
@@ -760,7 +761,7 @@ BRF:2
 BRH:2
 end_of_record
 TN:
-SF:js/pages/list.ts
+SF:src/js/pages/list.ts
 FN:4,renderListPage
 FNF:1
 FNH:1
@@ -795,7 +796,7 @@ BRF:2
 BRH:2
 end_of_record
 TN:
-SF:js/pages/settings.ts
+SF:src/js/pages/settings.ts
 FN:3,renderSettingsPage
 FNF:1
 FNH:1
@@ -840,7 +841,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:js/pages/watchlist.ts
+SF:src/js/pages/watchlist.ts
 FN:5,renderWatchListPage
 FN:23,(anonymous_1)
 FNF:2
@@ -880,7 +881,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:tests/queue.ts
+SF:src/tests/queue.ts
 FN:3,(anonymous_0)
 FN:6,(anonymous_1)
 FN:9,(anonymous_2)

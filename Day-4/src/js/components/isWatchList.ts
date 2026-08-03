@@ -10,7 +10,7 @@ export async function isWatchList() {
         const spinTop = document.querySelector(".spintop");
         spinTop!.classList.toggle("hidden");
         const frag = document.createDocumentFragment();
-        for (let element of datas) {
+        for (const element of datas) {
             const url = `https://www.omdbapi.com/?apikey=d65b40df&i=${element}`;
             const data = await fetchJSON1(url);
             const card = createCard1({
